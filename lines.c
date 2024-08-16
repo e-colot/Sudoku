@@ -10,6 +10,7 @@ struct lineNode* addLinesToGraphics() {
         return NULL;
     }
     struct lineNode* currentLine = firstLine;
+    struct lineNode* previousLine;  // used to remove the last allocated node
 
     // horizontal lines
 
@@ -27,6 +28,7 @@ struct lineNode* addLinesToGraphics() {
             return NULL;
         }
         else {
+            previousLine = currentLine;
             currentLine = currentLine->next;
         }
     }
@@ -47,11 +49,13 @@ struct lineNode* addLinesToGraphics() {
             return NULL;
         }
         else {
+            previousLine = currentLine;
             currentLine = currentLine->next;
         }
     }
 
-    currentLine->next = NULL;
+    free(previousLine->next);
+    previousLine->next = NULL;
 
     return firstLine;
 

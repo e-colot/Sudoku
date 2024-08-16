@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
-    printf("Check-up complete");
+    printf("Check-up complete\n");
 
     SDL_Delay(500);
 

@@ -77,7 +77,7 @@ void drawLines(struct graphicsController graphics) {
 
 void drawRectangles(struct graphicsController graphics) {
     struct rectangleNode* currentRectangle = graphics.rectangles;
-    while (currentRectangle->next != NULL) {
+    while (currentRectangle != NULL) {
         SDL_SetRenderDrawColor(graphics.renderer, currentRectangle->color, currentRectangle->color, currentRectangle->color, 255);
         SDL_RenderFillRect(graphics.renderer, &currentRectangle->rectangle);
         currentRectangle = currentRectangle->next;

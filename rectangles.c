@@ -9,10 +9,14 @@ struct rectangleNode* addRectanglesToGraphics() {
 		perror("Error creating the rectangles of the grid");
 		return NULL;
 	}
+
 	struct rectangleNode* currentRectangle = firstRectangle;
+	struct rectangleNode* previousRectangle;  // used to remove the last node
 	int color = 220;
+
 	for (int i = 95; i <= 395; i += 150) {
 		for (int j = 15; j <= 315; j += 150) {
+
 			currentRectangle->rectangle.x = i;
 			currentRectangle->rectangle.y = j;
 			currentRectangle->rectangle.h = 150;
@@ -29,11 +33,14 @@ struct rectangleNode* addRectanglesToGraphics() {
 				return NULL;
 			}
 			else {
+				previousRectangle = currentRectangle;
 				currentRectangle = currentRectangle->next;
 			}
 		}
 	}
-	currentRectangle->next = NULL;
+	
+	free(previousRectangle->next);
+	previousRectangle->next = NULL;
 
 	return firstRectangle;
 }
