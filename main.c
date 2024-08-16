@@ -11,6 +11,12 @@ int main(int argc, char* argv[]) {
     
     if (grid != NULL && graphics.window != NULL && graphics.renderer != NULL) {
         printf("Check-up complete");
+
+        SDL_Delay(3000);
+
+        updateGraphics(graphics);
+
+        SDL_Delay(3000);
     }
 
     destroyGraphics(graphics);

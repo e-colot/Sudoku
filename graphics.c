@@ -42,8 +42,6 @@ struct graphicsController initGraphics() {
 
     graphics.lines = addGridToGraphics();
 
-    SDL_Delay(3000); // Wait 3 seconds
-
     return graphics;
 }
 
@@ -80,11 +78,11 @@ struct lineNode* addGridToGraphics() {
 
     for (int i = 95; i <= 545; i += 50) {
 
-        lastLine->start.x = 15;
-        lastLine->start.y = i;
+        lastLine->start.x = i;
+        lastLine->start.y = 15;
 
-        lastLine->end.x = 465;
-        lastLine->end.y = i;
+        lastLine->end.x = i;
+        lastLine->end.y = 465;
 
         lastLine->next = malloc(sizeof(struct lineNode));
         if (lastLine->next == NULL) {
@@ -130,4 +128,26 @@ void destroyGraphics(struct graphicsController graphicsToDestroy) {
 
     SDL_Quit();
 
+}
+
+void drawLines(struct graphicsController graphics) {
+    struct lineNode* currentLine = graphics.lines;
+    while (currentLine != NULL) {
+        SDL_RenderDrawLine(graphics.renderer, currentLine->start.x, currentLine->start.y, currentLine->end.x, currentLine->end.y);
+        currentLine = currentLine->next;
+    }
+}
+
+void updateGraphics(struct graphicsController graphics) {
+
+    // Clears the screen
+    SDL_SetRenderDrawColor(graphics.renderer, 255, 255, 255, 255);
+    SDL_RenderClear(graphics.renderer);
+
+    // Draws lines
+    SDL_SetRenderDrawColor(graphics.renderer, 0, 0, 0, 255);
+    drawLines(graphics);
+
+    // Updates screen
+    SDL_RenderPresent(graphics.renderer);
 }
