@@ -7,22 +7,12 @@ struct graphicsController {
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 	struct lineNode* lines;
-};
-
-struct point {
-	int x;
-	int y;
-};
-
-struct lineNode {
-	struct point start;
-	struct point end;
-	struct lineNode* next;
+	struct rectangleNode* rectangles;
+	int errors;
 };
 
 struct graphicsController initGraphics();
-struct lineNode* addGridToGraphics();
-void freeLineNodes(struct lineNode* firstNode);
 void destroyGraphics(struct graphicsController graphicsToDestroy);
 void drawLines(struct graphicsController graphics);
+void drawRectangles(struct graphicsController graphics);
 void updateGraphics(struct graphicsController graphics);

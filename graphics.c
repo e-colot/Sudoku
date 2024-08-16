@@ -1,13 +1,16 @@
 #include <stdio.h>
 #include "graphics.h"
+#include "lines.h"
+#include "rectangles.h"
 
 struct graphicsController initGraphics() {
 
-    struct graphicsController graphics = { NULL, NULL };
+    struct graphicsController graphics = { NULL, NULL, NULL, NULL, 0 };
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         perror("Error initializing SDL");
-        destroyGraphics(graphics);
+        graphics.errors = 1;
+        return graphics;
     }
 
     // Window creation
@@ -40,80 +43,14 @@ struct graphicsController initGraphics() {
 
     // creation of the graphical grid
 
-    graphics.lines = addGridToGraphics();
+    graphics.lines = addLinesToGraphics();
+    graphics.rectangles = addRectanglesToGraphics();
+
+    if (graphics.lines == NULL || graphics.rectangles == NULL) {
+        graphics.errors = 1;
+    }
 
     return graphics;
-}
-
-struct lineNode* addGridToGraphics() {
-    // creates a chained list to store all the lines that makes the grid
-    struct lineNode* firstLine = malloc(sizeof(struct lineNode));
-    if (firstLine == NULL) {
-        perror("Error creating the lines of the grid");
-        return NULL;
-    }
-    struct lineNode* lastLine = firstLine;
-
-    // horizontal lines
-
-    for (int i = 15; i <= 465; i += 50) {
-
-        lastLine->start.x = 95;
-        lastLine->start.y = i;
-
-        lastLine->end.x = 545;
-        lastLine->end.y = i;
-
-        lastLine->next = malloc(sizeof(struct lineNode));
-        if (lastLine->next == NULL) {
-            perror("Error creating the lines of the grid");
-            return NULL;
-        }
-        else {
-            lastLine = lastLine->next;
-        }
-    }
-
-    // vertical lines
-
-    for (int i = 95; i <= 545; i += 50) {
-
-        lastLine->start.x = i;
-        lastLine->start.y = 15;
-
-        lastLine->end.x = i;
-        lastLine->end.y = 465;
-
-        lastLine->next = malloc(sizeof(struct lineNode));
-        if (lastLine->next == NULL) {
-            perror("Error creating the lines of the grid");
-            return NULL;
-        }
-        else {
-            lastLine = lastLine->next;
-        }
-    }
-
-    lastLine->next = NULL;
-
-    return firstLine;
-
-}
-
-void freeLineNodes(struct lineNode* firstNode) {
-    // deallocates the memory used to  store the lines
-    if (firstNode == NULL) {
-        return;
-    }
-    struct lineNode* currentNode = firstNode;
-    struct lineNode* nextNode = currentNode->next;
-
-    while (nextNode != NULL) {
-        free(currentNode);
-        currentNode = nextNode;
-        nextNode = currentNode->next;
-    }
-    free(currentNode);
 }
 
 void destroyGraphics(struct graphicsController graphicsToDestroy) {
@@ -138,11 +75,23 @@ void drawLines(struct graphicsController graphics) {
     }
 }
 
+void drawRectangles(struct graphicsController graphics) {
+    struct rectangleNode* currentRectangle = graphics.rectangles;
+    while (currentRectangle->next != NULL) {
+        SDL_SetRenderDrawColor(graphics.renderer, currentRectangle->color, currentRectangle->color, currentRectangle->color, 255);
+        SDL_RenderFillRect(graphics.renderer, &currentRectangle->rectangle);
+        currentRectangle = currentRectangle->next;
+    }
+}
+
 void updateGraphics(struct graphicsController graphics) {
 
     // Clears the screen
     SDL_SetRenderDrawColor(graphics.renderer, 255, 255, 255, 255);
     SDL_RenderClear(graphics.renderer);
+
+    // Draws rectangles
+    drawRectangles(graphics);
 
     // Draws lines
     SDL_SetRenderDrawColor(graphics.renderer, 0, 0, 0, 255);
