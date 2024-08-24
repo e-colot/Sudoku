@@ -2,52 +2,6 @@
 #include <stdlib.h>  // for dynamic memory allocation
 #include "rectangles.h"
 
-struct rectangleNode* addRectanglesToGraphics() {
-
-	// has to move to "grid.c"
-
-	// creates a chained list to store all the rectangles that makes the grid
-	struct rectangleNode* firstRectangle = malloc(sizeof(struct rectangleNode));
-	if (firstRectangle == NULL) {
-		perror("Error creating the rectangles of the grid");
-		return NULL;
-	}
-
-	struct rectangleNode* currentRectangle = firstRectangle;
-	struct rectangleNode* previousRectangle;  // used to remove the last node
-	int color = 220;
-
-	for (int i = 95; i <= 395; i += 150) {
-		for (int j = 15; j <= 315; j += 150) {
-
-			currentRectangle->rectangle.x = i;
-			currentRectangle->rectangle.y = j;
-			currentRectangle->rectangle.h = 150;
-			currentRectangle->rectangle.w = 150;
-
-			// alternates color between white and grey
-			currentRectangle->color = color;
-			color = (color == 255) ? 220 : 255;
-
-			// allocates memory for the next rectangle
-			currentRectangle->next = malloc(sizeof(struct rectangleNode));
-			if (currentRectangle->next == NULL) {
-				perror("Error creating the rectangles of the grid");
-				return NULL;
-			}
-			else {
-				previousRectangle = currentRectangle;
-				currentRectangle = currentRectangle->next;
-			}
-		}
-	}
-	
-	free(previousRectangle->next);
-	previousRectangle->next = NULL;
-
-	return firstRectangle;
-}
-
 struct rectangleNode* addRectangleToGraphics(struct rectangleNode* previousNode,
 	int topLeftX, int topLeftY, int sizeX, int sizeY,
 	int red, int green, int blue, int alpha) {

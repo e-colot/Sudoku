@@ -12,7 +12,6 @@ struct rectangleNode {
 	struct rectangleNode* next;
 };
 
-struct rectangleNode* addRectanglesToGraphics();
 struct rectangleNode* addRectangleToGraphics(struct rectangleNode* previousRectangle, 
 	int topLeftX, int topLeftY, int sizeX, int sizeY, 
 	int red, int green, int blue, int alpha);

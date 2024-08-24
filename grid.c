@@ -91,3 +91,24 @@ struct lineNode* addLinesToGraphics() {
 
 }
 
+struct rectangleNode* addRectanglesToGraphics() {
+    // add the rectangles to the graphics
+
+    struct rectangleNode* firstRectangle;
+    struct rectangleNode* lastRectangle;
+
+    int color = 220;
+
+    for (int i = 95; i <= 395; i += 150) {
+        for (int j = 15; j <= 315; j += 150) {
+            lastRectangle = addRectangleToGraphics(lastRectangle, i, j, 150, 150, color, color, color, 255);
+            // alternates color between white and grey
+            color = (color == 255) ? 220 : 255;
+            if (NULL == firstRectangle) {
+                firstRectangle = lastRectangle;
+            }
+        }
+    }
+
+    return firstRectangle;
+}
