@@ -1,9 +1,3 @@
 try each failure scenario (sometimes returns are made without thinking what it implies)
 
-Yoda-type conditions to avoid errors :
-	if (NULL == myPtr)
-instead of
-	if (myPtr == NULL)
-(so if '=' is put instead of '==', the compiler will put an error)
-
 Rethink the arguments of some functions in the graphical part

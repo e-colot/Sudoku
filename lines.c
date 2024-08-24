@@ -30,13 +30,13 @@ struct lineNode* addLineToGraphics(struct lineNode* previousNode, int startX, in
 
 void freeLineNodes(struct lineNode* firstNode) {
     // deallocates the memory used to  store the lines
-    if (firstNode == NULL) {
+    if (NULL == firstNode) {
         return;
     }
     struct lineNode* currentNode = firstNode;
     struct lineNode* nextNode = currentNode->next;
 
-    while (nextNode != NULL) {
+    while (NULL != nextNode) {
         free(currentNode);
         currentNode = nextNode;
         nextNode = currentNode->next;

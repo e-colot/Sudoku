@@ -31,7 +31,7 @@ struct graphicsController initGraphics() {
         SDL_WINDOWPOS_UNDEFINED,
         640, 480, SDL_WINDOW_SHOWN);
 
-    if (window == NULL) {
+    if (NULL == window) {
         perror("Error creating window");
         exit(-1);
     }
@@ -40,7 +40,7 @@ struct graphicsController initGraphics() {
     // Renderer creation
 
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if (renderer == NULL) {
+    if (NULL == renderer) {
         perror("Error creating renderer");
         exit(-1);
     }
@@ -54,7 +54,7 @@ struct graphicsController initGraphics() {
     }
 
     TTF_Font* font = TTF_OpenFont("./fonts/BebasNeue-Regular.ttf", 24);
-    if (font == NULL) {
+    if (NULL == font) {
         perror("Error loading the font");
         exit(-1);
     }
@@ -68,10 +68,10 @@ struct graphicsController initGraphics() {
 
 void destroyGraphics(struct graphicsController graphicsToDestroy) {
     // deletes the window and exit SDL properly
-    if (graphicsToDestroy.display->window != NULL) {
+    if (NULL != graphicsToDestroy.display->window) {
         SDL_DestroyWindow(graphicsToDestroy.display->window);
     }
-    if (graphicsToDestroy.display->renderer != NULL) {
+    if (NULL != graphicsToDestroy.display->renderer) {
         SDL_DestroyRenderer(graphicsToDestroy.display->renderer);
     }
     freeLineNodes(graphicsToDestroy.elements->lines);
@@ -85,7 +85,7 @@ void destroyGraphics(struct graphicsController graphicsToDestroy) {
 
 void drawLines(struct graphicsController graphics) {
     struct lineNode* currentLine = graphics.elements->lines;
-    while (currentLine != NULL) {
+    while (NULL != currentLine) {
         SDL_RenderDrawLine(graphics.display->renderer, currentLine->start.x, currentLine->start.y, currentLine->end.x, currentLine->end.y);
         currentLine = currentLine->next;
     }
@@ -93,7 +93,7 @@ void drawLines(struct graphicsController graphics) {
 
 void drawRectangles(struct graphicsController graphics) {
     struct rectangleNode* currentRectangle = graphics.elements->rectangles;
-    while (currentRectangle != NULL) {
+    while (NULL != currentRectangle) {
         SDL_SetRenderDrawColor(graphics.display->renderer, currentRectangle->colorR, currentRectangle->colorG, currentRectangle->colorB, currentRectangle->colorA);
         SDL_RenderFillRect(graphics.display->renderer, &currentRectangle->rectangle);
         currentRectangle = currentRectangle->next;
@@ -102,7 +102,7 @@ void drawRectangles(struct graphicsController graphics) {
 
 void drawTextBoxes(struct graphicsController graphics) {
     struct textBoxNode* currentTextBox = graphics.elements->textBoxes;
-    while (currentTextBox != NULL) {
+    while (NULL != currentTextBox) {
         SDL_RenderCopy(graphics.display->renderer, currentTextBox->texture, NULL, &(currentTextBox->rectangle));
         currentTextBox = currentTextBox->next;
     }

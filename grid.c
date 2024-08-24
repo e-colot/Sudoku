@@ -5,12 +5,12 @@ char** initGrid() {
     //creates the grid, in the form of a 2D array of chars
     char** createdGrid = malloc(9 * sizeof(char*));
 
-    if (createdGrid != NULL) {
+    if (NULL != createdGrid) {
         // if malloc succeeds
         for (int i = 0; i < 9; i++) {
             createdGrid[i] = calloc(9, sizeof(char));
 
-            if (createdGrid[i] == NULL) {
+            if (NULL == createdGrid[i]) {
                 // if calloc failed
                 perror("Failed to initialize the rows");
                 exit(-1);
@@ -27,10 +27,10 @@ char** initGrid() {
 
 void freeGrid(char** gridToFree) {
     // free the grid by first freeing each row and then the grid itself
-    if (gridToFree != NULL) {
+    if (NULL != gridToFree) {
         for (int i = 0; i < 9; i++) {
 
-            if (gridToFree[i] != NULL) {
+            if (NULL != gridToFree[i]) {
                 free(gridToFree[i]);
             }
 

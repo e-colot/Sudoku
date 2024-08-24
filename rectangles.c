@@ -36,14 +36,14 @@ struct rectangleNode* addRectangleToGraphics(struct rectangleNode* previousNode,
 
 void freeRectangleNodes(struct rectangleNode* firstNode) {
 	// deallocates the memory used to store the rectangles
-	if (firstNode == NULL) {
+	if (NULL == firstNode) {
 		return;
 	}
 
 	struct rectangleNode* currentNode = firstNode;
 	struct rectangleNode* nextNode = currentNode->next;
 
-	while (nextNode != NULL) {
+	while (NULL != nextNode) {
 		free(currentNode);
 		currentNode = nextNode;
 		nextNode = currentNode->next;

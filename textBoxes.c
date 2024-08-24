@@ -7,7 +7,7 @@ struct textBoxNode* addTextBoxToGraphics(struct textBoxNode* previousNode, int x
 
     // allocate memory for the new element
     struct textBoxNode* newNode = malloc(sizeof(struct textBoxNode));
-    if (newNode == NULL) {
+    if (NULL == newNode) {
         perror("Error creating a text box");
         exit(-1);
     }
@@ -19,13 +19,13 @@ struct textBoxNode* addTextBoxToGraphics(struct textBoxNode* previousNode, int x
     newNode->next = NULL;
 
     SDL_Surface* textSurface = TTF_RenderText_Solid(display->font, text, display->textColor);
-    if (textSurface == NULL) {
+    if (NULL == textSurface) {
         perror("Error while creating a SDL_Surface");
         exit(-1);
     }
 
     SDL_Texture* textTexture = SDL_CreateTextureFromSurface(display->renderer, textSurface);
-    if (textTexture == NULL) {
+    if (NULL == textTexture) {
         SDL_FreeSurface(textSurface);
         perror("Error while creating a SDL_Texture");
         exit(-1);
@@ -50,17 +50,17 @@ struct textBoxNode* addTextBoxToGraphics(struct textBoxNode* previousNode, int x
 
 void updateTextboxes(struct graphicsController graphics) {
     struct textBoxNode* currentTextBox = graphics.elements->textBoxes;
-    while (currentTextBox != NULL) {
+    while (NULL != currentTextBox) {
         if (0 == currentTextBox->changeNeeded) {
             // if the text has changed
             SDL_Surface* textSurface = TTF_RenderText_Solid(graphics.display->font, currentTextBox->value, graphics.display->textColor);
-            if (textSurface == NULL) {
+            if (NULL == textSurface) {
                 perror("Error while creating a SDL_Surface");
                 exit(-1);
             }
 
             SDL_Texture* textTexture = SDL_CreateTextureFromSurface(graphics.display->renderer, textSurface);
-            if (textTexture == NULL) {
+            if (NULL == textTexture) {
                 SDL_FreeSurface(textSurface);
                 perror("Error while creating a SDL_Texture");
                 exit(-1);
@@ -78,13 +78,13 @@ void updateTextboxes(struct graphicsController graphics) {
 
 void freeTextBoxNodes(struct textBoxNode* firstNode) {
     // deallocates the memory used to  store the text boxes
-    if (firstNode == NULL) {
+    if (NULL == firstNode) {
         return;
     }
     struct textBoxNode* currentNode = firstNode;
     struct textBoxNode* nextNode = currentNode->next;
 
-    while (nextNode != NULL) {
+    while (NULL != nextNode) {
         if (NULL != currentNode->texture) {
             SDL_DestroyTexture(currentNode->texture);
         }
