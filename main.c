@@ -8,7 +8,7 @@ void closeProgram(struct graphicsController graphics, char** grid);
 
 int main(int argc, char* argv[]) {
     
-    struct graphicsController graphics = { NULL, NULL, NULL, NULL, 0 };
+    struct graphicsController graphics = { NULL, NULL, 0 };
     char **grid = initGrid();
 
     if (grid == NULL) {
@@ -22,6 +22,7 @@ int main(int argc, char* argv[]) {
         closeProgram(graphics, grid);
         return -1;
     }
+
 
     printf("Check-up complete\n");
 
