@@ -25,6 +25,7 @@ struct graphicsController {
 };
 
 struct graphicsController initGraphics();
+void initText(struct graphicsController* graphics, char* fontLocation, int fontSize);
 void destroyGraphics(struct graphicsController graphicsToDestroy);
 void drawLines(struct graphicsController graphics);
 void drawRectangles(struct graphicsController graphics);

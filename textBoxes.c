@@ -5,6 +5,12 @@
 
 struct textBoxNode* addTextBoxToGraphics(struct textBoxNode* previousNode, int xPosition, int yPosition, char* text, int lenOfText, struct display* display) {
 
+    if (NULL == display->font) {
+        // if the font is not set up
+        perror("Font not correctly set up");
+        exit(-1);
+    }
+
     // allocate memory for the new element
     struct textBoxNode* newNode = malloc(sizeof(struct textBoxNode));
     if (NULL == newNode) {

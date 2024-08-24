@@ -45,7 +45,13 @@ struct graphicsController initGraphics() {
         exit(-1);
     }
     graphics.display->renderer = renderer;
+    graphics.display->font = NULL;
+    graphics.display->textColor = (SDL_Color) { 0, 0, 0, 0 };
 
+    return graphics;
+}
+
+void initText(struct graphicsController* graphics, char* fontLocation, int fontSize) {
     // SDL font creation
 
     if (TTF_Init() == -1) {
@@ -53,17 +59,15 @@ struct graphicsController initGraphics() {
         exit(-1);
     }
 
-    TTF_Font* font = TTF_OpenFont("./fonts/BebasNeue-Regular.ttf", 24);
+    TTF_Font* font = TTF_OpenFont(fontLocation, fontSize);
     if (NULL == font) {
         perror("Error loading the font");
         exit(-1);
     }
-    graphics.display->font = font;
+    graphics->display->font = font;
 
     SDL_Color textColor = { 0, 0, 0, 255 };
-    graphics.display->textColor = textColor;
-
-    return graphics;
+    graphics->display->textColor = textColor;
 }
 
 void destroyGraphics(struct graphicsController graphicsToDestroy) {

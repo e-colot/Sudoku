@@ -9,11 +9,11 @@ void closeProgram(struct graphicsController graphics, char** grid);
 int main(int argc, char* argv[]) {
     
     struct graphicsController graphics = initGraphics();
+    initText(&graphics, "./fonts/BebasNeue-Regular.ttf", 24);
+
     char **grid = initGrid();
     addGridToGraphics(&graphics);
 
-
-    printf("Check-up complete\n");
 
     SDL_Delay(500);
 
