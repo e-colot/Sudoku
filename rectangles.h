@@ -5,9 +5,15 @@
 
 struct rectangleNode {
 	SDL_Rect rectangle;
-	int color;  // value between 0 and 255 so (R, G, B) = (color, color, color)
+	int colorR;
+	int colorG;
+	int colorB;
+	int colorA;
 	struct rectangleNode* next;
 };
 
 struct rectangleNode* addRectanglesToGraphics();
+struct rectangleNode* addRectangleToGraphics(struct rectangleNode* previousRectangle, 
+	int topLeftX, int topLeftY, int sizeX, int sizeY, 
+	int red, int green, int blue, int alpha);
 void freeRectangleNodes(struct rectangleNode* firstNode);

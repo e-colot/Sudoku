@@ -1,5 +1,6 @@
 #include <stdlib.h>  // for dynamic memory allocation
 #include "grid.h"
+#include "graphics.h"
 
 char** initGrid() {
     //creates the grid, in the form of a 2D array of chars
@@ -63,5 +64,30 @@ bool setValue(char value, char row, char column, char** grid) {
     grid[row][column] = value;
     
     return true;
+}
+
+struct lineNode* addLinesToGraphics() {
+    // add the lines to the graphics
+
+    struct lineNode* firstLine = NULL;
+    struct lineNode* lastLine = NULL;
+
+    // horizontal lines
+    for (int i = 15; i <= 465; i += 50) {
+        lastLine = addLineToGraphics(lastLine, 95, i, 545, i);
+        if (NULL == firstLine) {
+            // if it is the first time that the for loop is runned
+            firstLine = lastLine;
+        }
+    }
+
+    // vertical lines
+
+    for (int i = 95; i <= 545; i += 50) {
+        lastLine = addLineToGraphics(lastLine, i, 15, i, 465);
+    }
+
+    return firstLine;
+
 }
 

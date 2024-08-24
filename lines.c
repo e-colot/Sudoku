@@ -2,63 +2,30 @@
 #include <stdlib.h>  // for dynamic memory allocation
 #include "lines.h"
 
-struct lineNode* addLinesToGraphics() {
-    // creates a chained list to store all the lines that makes the grid
-    struct lineNode* firstLine = malloc(sizeof(struct lineNode));
-    if (firstLine == NULL) {
-        perror("Error creating the lines of the grid");
+struct lineNode* addLineToGraphics(struct lineNode* previousNode, int startX, int startY, int endX, int endY) {
+
+    // allocate memory for the new element
+    struct lineNode* newNode = malloc(sizeof(struct lineNode));
+    if (NULL == newNode) {
+        perror("Error allocating memory for a line");
         return NULL;
     }
-    struct lineNode* currentLine = firstLine;
-    struct lineNode* previousLine;  // used to remove the last allocated node
 
-    // horizontal lines
+    newNode->start.x = startX;
+    newNode->start.y = startY;
+    newNode->end.x = endX;
+    newNode->end.y = endY;
+    newNode->next = NULL;
 
-    for (int i = 15; i <= 465; i += 50) {
-
-        currentLine->start.x = 95;
-        currentLine->start.y = i;
-
-        currentLine->end.x = 545;
-        currentLine->end.y = i;
-
-        currentLine->next = malloc(sizeof(struct lineNode));
-        if (currentLine->next == NULL) {
-            perror("Error creating the lines of the grid");
-            return NULL;
+    if (NULL != previousNode) {
+        while (NULL != previousNode->next) {
+            previousNode = previousNode->next;
         }
-        else {
-            previousLine = currentLine;
-            currentLine = currentLine->next;
-        }
+        // here we are sure that previousNode is at the end of the chained list
+        previousNode->next = newNode;
     }
 
-    // vertical lines
-
-    for (int i = 95; i <= 545; i += 50) {
-
-        currentLine->start.x = i;
-        currentLine->start.y = 15;
-
-        currentLine->end.x = i;
-        currentLine->end.y = 465;
-
-        currentLine->next = malloc(sizeof(struct lineNode));
-        if (currentLine->next == NULL) {
-            perror("Error creating the lines of the grid");
-            return NULL;
-        }
-        else {
-            previousLine = currentLine;
-            currentLine = currentLine->next;
-        }
-    }
-
-    free(previousLine->next);
-    previousLine->next = NULL;
-
-    return firstLine;
-
+    return newNode;
 }
 
 void freeLineNodes(struct lineNode* firstNode) {

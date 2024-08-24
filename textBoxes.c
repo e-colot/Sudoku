@@ -3,16 +3,8 @@
 #include "textBoxes.h"
 #include "graphics.h"  // for a complete definition of struct display
 
-//struct textBoxNode {
-//char* value;
-//int len;
-//SDL_Rect rectangle;
-//SDL_Texture* texture;
-//char changeNeeded;  // equals 0 by default, set to another value if the texture must be recreated
-//struct rectangleNode* next;
-//};
 
-struct textBoxNode* addTextBoxToGraphics(struct textBoxNode* previousTextBox, int xPosition, int yPosition, char* text, int lenOfText, struct display* display) {
+struct textBoxNode* addTextBoxToGraphics(struct textBoxNode* previousNode, int xPosition, int yPosition, char* text, int lenOfText, struct display* display) {
 
     // allocate memory for the new element
     struct textBoxNode* newNode = malloc(sizeof(struct textBoxNode));
@@ -46,9 +38,14 @@ struct textBoxNode* addTextBoxToGraphics(struct textBoxNode* previousTextBox, in
     newNode->texture = textTexture;
 
     // if it is not the first element
-    if (previousTextBox != NULL) {
-        previousTextBox->next = newNode;
+    if (NULL != previousNode) {
+        while (NULL != previousNode->next) {
+            previousNode = previousNode->next;
+        }
+        // here we are sure that previousNode is at the end of the chained list
+        previousNode->next = newNode;
     }
+
     return newNode;
 }
 

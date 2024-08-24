@@ -72,7 +72,6 @@ struct graphicsController initGraphics() {
 
     // creation of the graphical grid
 
-    graphics.elements->lines = addLinesToGraphics();
     graphics.elements->rectangles = addRectanglesToGraphics();
 
     if (graphics.elements->lines == NULL || graphics.elements->rectangles == NULL) {
@@ -113,7 +112,7 @@ void drawLines(struct graphicsController graphics) {
 void drawRectangles(struct graphicsController graphics) {
     struct rectangleNode* currentRectangle = graphics.elements->rectangles;
     while (currentRectangle != NULL) {
-        SDL_SetRenderDrawColor(graphics.display->renderer, currentRectangle->color, currentRectangle->color, currentRectangle->color, 255);
+        SDL_SetRenderDrawColor(graphics.display->renderer, currentRectangle->colorR, currentRectangle->colorG, currentRectangle->colorB, currentRectangle->colorA);
         SDL_RenderFillRect(graphics.display->renderer, &currentRectangle->rectangle);
         currentRectangle = currentRectangle->next;
     }
