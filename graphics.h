@@ -2,6 +2,9 @@
 
 #include <SDL.h>
 #include "SDL_ttf.h"
+#include "lines.h"
+#include "rectangles.h"
+#include "textBoxes.h"
 
 struct display {
 	SDL_Window* window;
@@ -19,7 +22,6 @@ struct elementsToDisplay {
 struct graphicsController {
 	struct display* display;
 	struct elementsToDisplay* elements;
-	int errors;
 };
 
 struct graphicsController initGraphics();

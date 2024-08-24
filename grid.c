@@ -1,6 +1,5 @@
 #include <stdlib.h>  // for dynamic memory allocation
 #include "grid.h"
-#include "graphics.h"
 
 char** initGrid() {
     //creates the grid, in the form of a 2D array of chars
@@ -14,13 +13,13 @@ char** initGrid() {
             if (createdGrid[i] == NULL) {
                 // if calloc failed
                 perror("Failed to initialize the rows");
-                return NULL;
+                exit(-1);
             }
         }
     }
     else {
         perror("Failed to initialize the grid");
-        return NULL;
+        exit(-1);
     }
 
     return createdGrid;
@@ -94,8 +93,8 @@ struct lineNode* addLinesToGraphics() {
 struct rectangleNode* addRectanglesToGraphics() {
     // add the rectangles to the graphics
 
-    struct rectangleNode* firstRectangle;
-    struct rectangleNode* lastRectangle;
+    struct rectangleNode* firstRectangle = NULL;
+    struct rectangleNode* lastRectangle = NULL;
 
     int color = 220;
 
@@ -111,4 +110,15 @@ struct rectangleNode* addRectanglesToGraphics() {
     }
 
     return firstRectangle;
+}
+
+void addGridToGraphics(struct graphicsController* graphics) {
+    // adds the elements that must be displayed
+    if (NULL == graphics->elements) {
+        // if the initialization was not properly done
+        perror("Error with the allocation of graphics.elements");
+        exit(-1);
+    }
+    graphics->elements->lines = addLinesToGraphics();
+    graphics->elements->rectangles = addRectanglesToGraphics();
 }

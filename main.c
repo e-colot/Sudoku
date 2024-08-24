@@ -8,20 +8,9 @@ void closeProgram(struct graphicsController graphics, char** grid);
 
 int main(int argc, char* argv[]) {
     
-    struct graphicsController graphics = { NULL, NULL, 0 };
+    struct graphicsController graphics = initGraphics();
     char **grid = initGrid();
-
-    if (grid == NULL) {
-        closeProgram(graphics, grid);
-        return -1;
-    }
-
-    graphics = initGraphics();
-    
-    if (graphics.errors != 0) {
-        closeProgram(graphics, grid);
-        return -1;
-    }
+    addGridToGraphics(&graphics);
 
 
     printf("Check-up complete\n");

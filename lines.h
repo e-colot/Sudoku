@@ -11,7 +11,7 @@ struct lineNode {
 	struct point start;
 	struct point end;
 	struct lineNode* next;
-};
+}; 
 
 struct lineNode* addLineToGraphics(struct lineNode* previousLine, int startX, int startY, int endX, int endY);
 void freeLineNodes(struct lineNode* firstNode);

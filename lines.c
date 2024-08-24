@@ -8,7 +8,7 @@ struct lineNode* addLineToGraphics(struct lineNode* previousNode, int startX, in
     struct lineNode* newNode = malloc(sizeof(struct lineNode));
     if (NULL == newNode) {
         perror("Error allocating memory for a line");
-        return NULL;
+        exit(-1);
     }
 
     newNode->start.x = startX;

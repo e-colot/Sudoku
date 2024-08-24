@@ -1,30 +1,27 @@
 #include <stdio.h>
 #include "graphics.h"
-#include "lines.h"
-#include "rectangles.h"
-#include "textBoxes.h"
 
 struct graphicsController initGraphics() {
 
-    struct graphicsController graphics = { NULL, NULL, 0 };
+    struct graphicsController graphics = { NULL, NULL };
     graphics.display = malloc(sizeof(struct display));
     if (NULL == graphics.display) {
         perror("Error allocating memory for the display");
-        return graphics;
+        exit(-1);
     }
     graphics.elements = malloc(sizeof(struct elementsToDisplay));
     if (NULL == graphics.elements) {
         perror("Error allocating memory for the elements to display");
-        return graphics;
+        exit(-1);
     }
     graphics.elements->lines = NULL;
     graphics.elements->rectangles = NULL;
     graphics.elements->textBoxes = NULL;
 
+
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         perror("Error initializing SDL");
-        graphics.errors = 1;
-        return graphics;
+        exit(-1);
     }
 
     // Window creation
@@ -36,8 +33,7 @@ struct graphicsController initGraphics() {
 
     if (window == NULL) {
         perror("Error creating window");
-        graphics.errors = 1;
-        return graphics;
+        exit(-1);
     }
     graphics.display->window = window;
 
@@ -46,8 +42,7 @@ struct graphicsController initGraphics() {
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (renderer == NULL) {
         perror("Error creating renderer");
-        graphics.errors = 1;
-        return graphics;
+        exit(-1);
     }
     graphics.display->renderer = renderer;
 
@@ -55,31 +50,18 @@ struct graphicsController initGraphics() {
 
     if (TTF_Init() == -1) {
         perror("Error creating font");
-        graphics.errors = 1;
-        return graphics;
+        exit(-1);
     }
 
     TTF_Font* font = TTF_OpenFont("./fonts/BebasNeue-Regular.ttf", 24);
     if (font == NULL) {
         perror("Error loading the font");
-        graphics.errors = 1;
-        return graphics;
+        exit(-1);
     }
     graphics.display->font = font;
 
     SDL_Color textColor = { 0, 0, 0, 255 };
     graphics.display->textColor = textColor;
-
-    // creation of the graphical grid
-
-    graphics.elements->rectangles = addRectanglesToGraphics();
-
-    if (graphics.elements->lines == NULL || graphics.elements->rectangles == NULL) {
-        graphics.errors = 1;
-    }
-
-    char* text = "TEST";
-    graphics.elements->textBoxes = addTextBoxToGraphics(NULL, 50, 50, text, 5, graphics.display);
 
     return graphics;
 }

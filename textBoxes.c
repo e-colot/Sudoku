@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>  // for dynamic memory allocation
 #include "textBoxes.h"
-#include "graphics.h"  // for a complete definition of struct display
 
 
 struct textBoxNode* addTextBoxToGraphics(struct textBoxNode* previousNode, int xPosition, int yPosition, char* text, int lenOfText, struct display* display) {
@@ -10,7 +9,7 @@ struct textBoxNode* addTextBoxToGraphics(struct textBoxNode* previousNode, int x
     struct textBoxNode* newNode = malloc(sizeof(struct textBoxNode));
     if (newNode == NULL) {
         perror("Error creating a text box");
-        return NULL;
+        exit(-1);
     }
     newNode->value = text;
     newNode->len = lenOfText;
@@ -22,14 +21,14 @@ struct textBoxNode* addTextBoxToGraphics(struct textBoxNode* previousNode, int x
     SDL_Surface* textSurface = TTF_RenderText_Solid(display->font, text, display->textColor);
     if (textSurface == NULL) {
         perror("Error while creating a SDL_Surface");
-        return NULL;
+        exit(-1);
     }
 
     SDL_Texture* textTexture = SDL_CreateTextureFromSurface(display->renderer, textSurface);
     if (textTexture == NULL) {
         SDL_FreeSurface(textSurface);
         perror("Error while creating a SDL_Texture");
-        return NULL;
+        exit(-1);
     }
     newNode->rectangle.w = textSurface->w;
     newNode->rectangle.h = textSurface->h;
@@ -57,14 +56,14 @@ void updateTextboxes(struct graphicsController graphics) {
             SDL_Surface* textSurface = TTF_RenderText_Solid(graphics.display->font, currentTextBox->value, graphics.display->textColor);
             if (textSurface == NULL) {
                 perror("Error while creating a SDL_Surface");
-                return;
+                exit(-1);
             }
 
             SDL_Texture* textTexture = SDL_CreateTextureFromSurface(graphics.display->renderer, textSurface);
             if (textTexture == NULL) {
                 SDL_FreeSurface(textSurface);
                 perror("Error while creating a SDL_Texture");
-                return;
+                exit(-1);
             }
             currentTextBox->rectangle.w = textSurface->w;
             currentTextBox->rectangle.h = textSurface->h;

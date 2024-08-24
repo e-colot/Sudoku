@@ -10,7 +10,7 @@ struct rectangleNode* addRectangleToGraphics(struct rectangleNode* previousNode,
 	struct rectangleNode* newNode = malloc(sizeof(struct rectangleNode));
 	if (NULL == newNode) {
 		perror("Error while allocating memory for a rectangle");
-		return NULL;
+		exit(-1);
 	}
 
 	newNode->rectangle.x = topLeftX;

@@ -3,6 +3,7 @@
 
 #include "SDL.h"
 #include "SDL_ttf.h"
+#include "graphics.h"  // for a complete definition of struct display
 
 struct textBoxNode {
 	char* value;
