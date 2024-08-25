@@ -5,14 +5,10 @@ struct graphicsController initGraphics() {
 
     struct graphicsController graphics = { NULL, NULL };
     graphics.display = malloc(sizeof(struct display));
-    if (NULL == graphics.display) {
-        perror("Error allocating memory for the display");
-        exit(-1);
-    }
     graphics.elements = malloc(sizeof(struct elementsToDisplay));
-    if (NULL == graphics.elements) {
-        perror("Error allocating memory for the elements to display");
-        exit(-1);
+    if (NULL == graphics.display || NULL == graphics.elements) {
+        perror("Error allocating memory for the graphics");
+        goto EXIT0;
     }
     graphics.elements->lines = NULL;
     graphics.elements->rectangles = NULL;
@@ -21,7 +17,7 @@ struct graphicsController initGraphics() {
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         perror("Error initializing SDL");
-        exit(-1);
+        goto EXIT0;
     }
 
     // Window creation
@@ -33,7 +29,7 @@ struct graphicsController initGraphics() {
 
     if (NULL == window) {
         perror("Error creating window");
-        exit(-1);
+        goto EXIT1;
     }
     graphics.display->window = window;
 
@@ -42,13 +38,26 @@ struct graphicsController initGraphics() {
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (NULL == renderer) {
         perror("Error creating renderer");
-        exit(-1);
+        goto EXIT2;
     }
     graphics.display->renderer = renderer;
     graphics.display->font = NULL;
     graphics.display->textColor = (SDL_Color) { 0, 0, 0, 0 };
 
     return graphics;
+
+    // Handling an error during the function call and closing it properly
+    EXIT2:
+        SDL_DestroyWindow(graphics.display->window);
+
+    EXIT1:
+        SDL_Quit();
+
+    EXIT0:
+        free(graphics.elements);
+        free(graphics.display);
+
+    exit(-1);
 }
 
 void initText(struct graphicsController* graphics, char* fontLocation, int fontSize) {
@@ -78,9 +87,15 @@ void destroyGraphics(struct graphicsController graphicsToDestroy) {
     if (NULL != graphicsToDestroy.display->renderer) {
         SDL_DestroyRenderer(graphicsToDestroy.display->renderer);
     }
+    if (NULL != graphicsToDestroy.display->font) {
+        TTF_CloseFont(graphicsToDestroy.display->font);
+    }
     freeLineNodes(graphicsToDestroy.elements->lines);
     freeRectangleNodes(graphicsToDestroy.elements->rectangles);
     freeTextBoxNodes(graphicsToDestroy.elements->textBoxes);
+
+    free(graphicsToDestroy.elements);
+    free(graphicsToDestroy.display);
 
     TTF_Quit();
     SDL_Quit();
