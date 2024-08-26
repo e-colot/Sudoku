@@ -30,9 +30,11 @@ void freeGrid(char** gridToFree) {
     if (NULL != gridToFree) {
         for (int i = 0; i < 9; i++) {
 
-            if (NULL != gridToFree[i]) {
-                free(gridToFree[i]);
-            }
+            //if (NULL != gridToFree[i]) {
+            //    free(gridToFree[i]);
+            //}
+            // no need to check this because free(NULL) is authorized
+            free(gridToFree[i]);
 
         }
 
