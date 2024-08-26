@@ -2,7 +2,7 @@
 #include <stdlib.h>  // for dynamic memory allocation
 #include "lines.h"
 
-struct lineNode* addLineToGraphics(struct lineNode* previousNode, int startX, int startY, int endX, int endY) {
+struct lineNode* addLineToGraphics(struct lineNode* previousNode, int startX, int startY, int endX, int endY, int red, int green, int blue, int alpha) {
 
     // allocate memory for the new element
     struct lineNode* newNode = malloc(sizeof(struct lineNode));
@@ -16,6 +16,11 @@ struct lineNode* addLineToGraphics(struct lineNode* previousNode, int startX, in
     newNode->end.x = endX;
     newNode->end.y = endY;
     newNode->next = NULL;
+
+    newNode->colorR = red;
+    newNode->colorG = green;
+    newNode->colorB = blue;
+    newNode->colorA = alpha;
 
     if (NULL != previousNode) {
         while (NULL != previousNode->next) {

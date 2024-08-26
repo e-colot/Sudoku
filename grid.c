@@ -73,7 +73,7 @@ struct lineNode* addLinesToGraphics() {
 
     // horizontal lines
     for (int i = 15; i <= 465; i += 50) {
-        lastLine = addLineToGraphics(lastLine, 95, i, 545, i);
+        lastLine = addLineToGraphics(lastLine, 95, i, 545, i, 0, 0, 0, 255);
         if (NULL == firstLine) {
             // if it is the first time that the for loop is runned
             firstLine = lastLine;
@@ -83,7 +83,7 @@ struct lineNode* addLinesToGraphics() {
     // vertical lines
 
     for (int i = 95; i <= 545; i += 50) {
-        lastLine = addLineToGraphics(lastLine, i, 15, i, 465);
+        lastLine = addLineToGraphics(lastLine, i, 15, i, 465, 0, 0, 0, 255);
     }
 
     return firstLine;

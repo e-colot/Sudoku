@@ -105,6 +105,7 @@ void destroyGraphics(struct graphicsController graphicsToDestroy) {
 void drawLines(struct graphicsController graphics) {
     struct lineNode* currentLine = graphics.elements->lines;
     while (NULL != currentLine) {
+        SDL_SetRenderDrawColor(graphics.display->renderer, currentLine->colorR, currentLine->colorG, currentLine->colorB, currentLine->colorA);
         SDL_RenderDrawLine(graphics.display->renderer, currentLine->start.x, currentLine->start.y, currentLine->end.x, currentLine->end.y);
         currentLine = currentLine->next;
     }
@@ -137,7 +138,6 @@ void updateGraphics(struct graphicsController graphics) {
     drawRectangles(graphics);
 
     // Draws lines
-    SDL_SetRenderDrawColor(graphics.display->renderer, 0, 0, 0, 255);
     drawLines(graphics);
 
     // Add text

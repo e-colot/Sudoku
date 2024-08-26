@@ -10,8 +10,14 @@ struct point {
 struct lineNode {
 	struct point start;
 	struct point end;
+	int colorR;
+	int colorG;
+	int colorB;
+	int colorA;
 	struct lineNode* next;
 }; 
 
-struct lineNode* addLineToGraphics(struct lineNode* previousLine, int startX, int startY, int endX, int endY);
+struct lineNode* addLineToGraphics(struct lineNode* previousLine, 
+	int startX, int startY, int endX, int endY,
+	int red, int green, int blue, int alpha);
 void freeLineNodes(struct lineNode* firstNode);
