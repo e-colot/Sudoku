@@ -24,7 +24,7 @@ struct textBoxNode* addTextBoxToGraphics(struct textBoxNode* previousNode, int c
 
     SDL_Surface* textSurface = TTF_RenderText_Solid(display->font, text, display->textColor);
     if (NULL == textSurface) {
-        perror("Error while creating a SDL_Surface");
+        fprintf(stderr, "Error while creating a SDL_Surface: %s\n", SDL_GetError());
         exit(-1);
     }
 

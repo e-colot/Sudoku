@@ -1,3 +1,5 @@
 try each failure scenario (sometimes returns are made without thinking what it implies)
 
 Rethink the arguments of some functions in the graphical part
+
+ambiguous function names in grid.c (close to the ones in the graphical part)

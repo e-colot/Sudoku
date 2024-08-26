@@ -9,4 +9,5 @@ bool setValue(char value, char row, char column, char** grid);
 
 struct lineNode* addLinesToGraphics();
 struct rectangleNode* addRectanglesToGraphics();
-void addGridToGraphics(struct graphicsController* graphics);
+struct textBoxNode* addTextBoxesToGraphics(char** grid, struct display* display);
+void addGridToGraphics(struct graphicsController* graphics, char** grid);

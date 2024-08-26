@@ -11,8 +11,8 @@ int main(int argc, char* argv[]) {
     struct graphicsController graphics = initGraphics();
     initText(&graphics, "./fonts/BebasNeue-Regular.ttf", 24);
 
-    char **grid = initGrid();
-    addGridToGraphics(&graphics);
+    char** grid = initGrid();
+    addGridToGraphics(&graphics, grid);
 
 
     SDL_Delay(500);
