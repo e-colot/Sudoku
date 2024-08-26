@@ -17,7 +17,7 @@ char** initGrid() {
             }
 
             for (int j = 0; j < 9; j++) {
-                createdGrid[i][j * 2] = '0';
+                createdGrid[i][j * 2] = '0' + (char) i;
                 createdGrid[i][j * 2 + 1] = '\0';  // null terminator to use a pointer to this for the display
             }
         }
@@ -106,9 +106,11 @@ struct textBoxNode* addTextBoxesToGraphics(char** grid, struct display* display)
 
     for (int i = 0; i < 9; i++) {
         for (int j = 0; j < 9; j++) {
-            lastNode = addTextBoxToGraphics(lastNode, 120 + 50 * i, 40 + 50 * j, &grid[i][2 * j], 1, display);
-            if (NULL == firstNode) {
-                firstNode = lastNode;
+            if ('0' != grid[i][2 * j]) {
+                lastNode = addTextBoxToGraphics(lastNode, 120 + 50 * i, 40 + 50 * j, &grid[i][2 * j], 1, display);
+                if (NULL == firstNode) {
+                    firstNode = lastNode;
+                }
             }
         }
     }
