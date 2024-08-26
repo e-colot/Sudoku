@@ -3,7 +3,7 @@
 #include "textBoxes.h"
 
 
-struct textBoxNode* addTextBoxToGraphics(struct textBoxNode* previousNode, int xPosition, int yPosition, char* text, int lenOfText, struct display* display) {
+struct textBoxNode* addTextBoxToGraphics(struct textBoxNode* previousNode, int centerX, int centerY, char* text, int lenOfText, struct display* display) {
 
     if (NULL == display->font) {
         // if the font is not set up
@@ -19,8 +19,6 @@ struct textBoxNode* addTextBoxToGraphics(struct textBoxNode* previousNode, int x
     }
     newNode->value = text;
     newNode->len = lenOfText;
-    newNode->rectangle.x = xPosition;
-    newNode->rectangle.y = yPosition;
     newNode->changeNeeded = 0;
     newNode->next = NULL;
 
@@ -38,6 +36,8 @@ struct textBoxNode* addTextBoxToGraphics(struct textBoxNode* previousNode, int x
     }
     newNode->rectangle.w = textSurface->w;
     newNode->rectangle.h = textSurface->h;
+    newNode->rectangle.x = centerX - (int) (textSurface->w/2);
+    newNode->rectangle.y = centerY - (int) (textSurface->h/2);
 
     SDL_FreeSurface(textSurface);
     newNode->texture = textTexture;
@@ -58,6 +58,8 @@ void updateTextboxes(struct graphicsController graphics) {
     struct textBoxNode* currentTextBox = graphics.elements->textBoxes;
     while (NULL != currentTextBox) {
         if (0 == currentTextBox->changeNeeded) {
+            currentTextBox->rectangle.x += 2 * currentTextBox->rectangle.w;
+            currentTextBox->rectangle.y += 2 * currentTextBox->rectangle.h;
             // if the text has changed
             SDL_Surface* textSurface = TTF_RenderText_Solid(graphics.display->font, currentTextBox->value, graphics.display->textColor);
             if (NULL == textSurface) {
@@ -73,6 +75,9 @@ void updateTextboxes(struct graphicsController graphics) {
             }
             currentTextBox->rectangle.w = textSurface->w;
             currentTextBox->rectangle.h = textSurface->h;
+
+            currentTextBox->rectangle.x -= (int) (currentTextBox->rectangle.w/2);
+            currentTextBox->rectangle.y -= (int) (currentTextBox->rectangle.h/2);
 
             SDL_FreeSurface(textSurface);
             currentTextBox->texture = textTexture;

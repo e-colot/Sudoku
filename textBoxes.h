@@ -14,6 +14,6 @@ struct textBoxNode {
 	struct textBoxNode* next;
 };
 
-struct textBoxNode* addTextBoxToGraphics(struct textBoxNode* previousTextBox, int xPosition, int yPosition, char* text, int lenOfText, struct display* display);
+struct textBoxNode* addTextBoxToGraphics(struct textBoxNode* previousTextBox, int centerX, int centerY, char* text, int lenOfText, struct display* display);
 void freeTextBoxNodes(struct textBoxNode* firstNode);
 void updateTextboxes(struct graphicsController graphics);
