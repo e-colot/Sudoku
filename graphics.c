@@ -16,7 +16,7 @@ struct graphicsController initGraphics() {
 
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-        perror("Error initializing SDL");
+        fprintf(stderr, "Error initializing SDL : %s\n", SDL_GetError());
         goto EXIT0;
     }
 
@@ -28,7 +28,7 @@ struct graphicsController initGraphics() {
         640, 480, SDL_WINDOW_SHOWN);
 
     if (NULL == window) {
-        perror("Error creating window");
+        fprintf(stderr, "Error creating window : %s\n", SDL_GetError());
         goto EXIT1;
     }
     graphics.display->window = window;
@@ -37,7 +37,7 @@ struct graphicsController initGraphics() {
 
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (NULL == renderer) {
-        perror("Error creating renderer");
+        fprintf(stderr, "Error creating renderer : %s\n", SDL_GetError());
         goto EXIT2;
     }
     graphics.display->renderer = renderer;
@@ -64,13 +64,13 @@ void initText(struct graphicsController* graphics, char* fontLocation, int fontS
     // SDL font creation
 
     if (TTF_Init() == -1) {
-        perror("Error creating font");
+        fprintf(stderr, "Error creating font : %s\n", TTF_GetError());
         exit(-1);
     }
 
     TTF_Font* font = TTF_OpenFont(fontLocation, fontSize);
     if (NULL == font) {
-        perror("Error loading the font");
+        fprintf(stderr, "Error loading the font : %s\n", TTF_GetError());
         exit(-1);
     }
     graphics->display->font = font;

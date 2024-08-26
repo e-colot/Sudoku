@@ -24,14 +24,14 @@ struct textBoxNode* addTextBoxToGraphics(struct textBoxNode* previousNode, int c
 
     SDL_Surface* textSurface = TTF_RenderText_Solid(display->font, text, display->textColor);
     if (NULL == textSurface) {
-        fprintf(stderr, "Error while creating a SDL_Surface: %s\n", SDL_GetError());
+        fprintf(stderr, "Error while creating a SDL_Surface : %s\n", SDL_GetError());
         exit(-1);
     }
 
     SDL_Texture* textTexture = SDL_CreateTextureFromSurface(display->renderer, textSurface);
     if (NULL == textTexture) {
         SDL_FreeSurface(textSurface);
-        perror("Error while creating a SDL_Texture");
+        fprintf(stderr, "Error while creating a SDL_Texture : %s\n", SDL_GetError());
         exit(-1);
     }
     newNode->rectangle.w = textSurface->w;

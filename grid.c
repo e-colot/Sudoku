@@ -17,7 +17,7 @@ char** initGrid() {
             }
 
             for (int j = 0; j < 9; j++) {
-                createdGrid[i][j * 2] = '0' + (char) i;
+                createdGrid[i][j * 2] = '0';
                 createdGrid[i][j * 2 + 1] = '\0';  // null terminator to use a pointer to this for the display
             }
         }
