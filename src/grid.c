@@ -47,7 +47,7 @@ void freeGrid(char** gridToFree) {
     }
 }
 
-bool setValue(char value, char row, char column, char** grid) {
+bool setValue(char value, int row, int column, char** grid) {
     // try to change the value of a tile and returns wheter it was a success or not
     // value should NEVER be '0' (as it is possible to have multiple '0''s on a line/row/square
     // value = '1', '2', '3', '4', '5', '6', '7', '8', '9'

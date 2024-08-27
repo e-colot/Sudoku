@@ -5,7 +5,7 @@
 
 char** initGrid();
 void freeGrid(char** gridToFree);
-bool setValue(char value, char row, char column, char** grid);
+bool setValue(char value, int row, int column, char** grid);
 
 struct lineNode* addLinesToGraphics();
 struct rectangleNode* addRectanglesToGraphics();

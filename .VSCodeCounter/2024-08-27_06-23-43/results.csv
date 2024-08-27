@@ -1,0 +1,13 @@
+"filename", "language", "C", "C++", "comment", "blank", "total"
+"e:\Codage\C\Sudoku\src\graphics.c", "C", 107, 0, 10, 32, 149
+"e:\Codage\C\Sudoku\src\graphics.h", "C++", 0, 28, 0, 6, 34
+"e:\Codage\C\Sudoku\src\grid.c", "C", 100, 0, 22, 32, 154
+"e:\Codage\C\Sudoku\src\grid.h", "C++", 0, 10, 0, 4, 14
+"e:\Codage\C\Sudoku\src\lines.c", "C", 39, 0, 3, 10, 52
+"e:\Codage\C\Sudoku\src\lines.h", "C++", 0, 18, 2, 4, 24
+"e:\Codage\C\Sudoku\src\main.c", "C", 20, 0, 0, 13, 33
+"e:\Codage\C\Sudoku\src\rectangles.c", "C", 41, 0, 3, 9, 53
+"e:\Codage\C\Sudoku\src\rectangles.h", "C++", 0, 14, 1, 4, 19
+"e:\Codage\C\Sudoku\src\textBoxes.c", "C", 85, 0, 6, 17, 108
+"e:\Codage\C\Sudoku\src\textBoxes.h", "C++", 0, 15, 1, 4, 20
+"Total", "-", 392, 85, 48, 135, 660

@@ -11,7 +11,7 @@ OBJS := $(SRCS:$(SRC_DIRS)/%.c=$(BUILD_DIR)/%.o)
 # Compiler and flags
 CC := gcc
 CFLAGS := -Wall -Werror -Iinclude $(shell sdl2-config --cflags)
-LDFLAGS := $(shell sdl2-config --libs)
+LDFLAGS := $(shell sdl2-config --libs ) -lSDL2_ttf
 
 # Target executable
 TARGET := sudoku
@@ -24,9 +24,9 @@ $(TARGET): $(OBJS)  # needs the rule under to be executed before to have .o file
 $(BUILD_DIR)/%.o: $(SRC_DIRS)/%.c
 	@mkdir -p $(dir $@)   # Create the build directory if it doesn't exist
 	$(CC) $(CFLAGS) -c -o $@ $<
-		# $@ refers to the obj file (see as a for loop where @ is the iterator trough the files)
-		# $< refers to the first prerequisit (here the .C files needed to build the .o files)
-		# $^refers to the other prerequisities that might be needed
+# $@ refers to the obj file (see as a for loop where @ is the iterator trough the files)
+# $< refers to the first prerequisit (here the .C files needed to build the .o files)
+# $^refers to the other prerequisities that might be needed
 
 # Clean rule
 .PHONY: clean
